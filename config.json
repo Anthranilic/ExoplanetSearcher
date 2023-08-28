@@ -1,0 +1,5 @@
+{
+    "api_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+ps&format=json",
+    "json_output_path": "/../output_data.json",
+    "api_timeout": 300
+}

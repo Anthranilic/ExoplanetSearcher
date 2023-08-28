@@ -1,0 +1,70 @@
+# DATA ACQUISITION
+
+# 1.1 Import necessary dependencies
+import necessary_libraries
+import logging
+
+# 1.2 Initialize custom exceptions
+class DataAcquisitionError(Exception):
+    """Exception raised for errors in the data acquisition process."""
+    pass
+
+# 1.3 Set up the logging configuration
+def setup_logging():
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.info("Logging initialized.")
+
+# 1.4 Load the configuration for data source and other settings
+def load_config(file_path):
+    """
+    Load the configuration from the given file path.
+    Return a dictionary of configurations.
+    """
+    try:
+        # TODO: Choose the right method of loading configurations.
+        # For example, if using JSON:
+        # with open(file_path, 'r') as f:
+        #     config = json.load(f)
+        return config
+    except Exception as e:
+        logging.error(f"Failed to load configuration: {str(e)}")
+        raise
+
+# 1.5 Acquire the light curves data
+def acquire_data(source):
+    """
+    Download light curves from the given dataset source.
+    Raises DataAcquisitionError if data cannot be acquired.
+    """
+    try:
+        data = dataset_library.get_data(source)
+        if data is None or len(data) == 0:  # Checking for empty data as well.
+            raise DataAcquisitionError("No data received.")
+        logging.info("Data successfully acquired.")
+        return data
+    except Exception as e:
+        logging.error(f"Data acquisition failed: {str(e)}")
+        raise DataAcquisitionError from e
+
+# 1.6 Main function for this step
+def main_step1():
+    setup_logging()
+    
+    # Added error handling around configuration loading.
+    try:
+        config = load_config("config_file_path")
+    except Exception:
+        logging.error("Configuration loading failed. Terminating process.")
+        return
+    
+    try:
+        raw_data = acquire_data(config["data_source"])
+    except DataAcquisitionError:
+        logging.error("Data acquisition failed. Terminating process.")
+        return
+
+    logging.info("Step 1 completed successfully.")
+
+# Entry point
+if __name__ == "__main__":
+    main_step1()

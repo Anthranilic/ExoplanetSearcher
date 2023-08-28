@@ -1,0 +1,19 @@
+# Step 2: Data Acquisition
+
+# 2.1 Acquire the light curves data
+def acquire_data(source):
+    """
+    Download light curves from the given dataset source.
+    Raises DataAcquisitionError if data cannot be acquired.
+    """
+    try:
+        # TODO: Decide on the appropriate data acquisition method based on `source`.
+        data = dataset_library.get_data(source)
+        if data is None or len(data) == 0:  # Checking for empty data as well.
+            raise DataAcquisitionError("No data received.")
+        logging.info("Data successfully acquired.")
+        return data
+    except Exception as e:
+        logging.error(f"Data acquisition failed: {str(e)}")
+        raise DataAcquisitionError from e
+
